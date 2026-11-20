@@ -1,67 +1,63 @@
 HCVN – Data Analyst Test
-Sau khi giải nén, mở thư mục HCVN/ trước. Trong đó có hai file PDF:
-- HCVN_Bai_lam.pdf — mở file này trước để đọc bài làm cho cả ba phần SQL, Power BI và Technical.
-- 00_Huong_dan.pdf — hướng dẫn chạy từng phần, kèm ảnh dashboard và kết quả mẫu để đối chiếu.
-Các đường dẫn bên dưới đều tính từ thư mục HCVN/.
-
-
-1. Mở file nào cho từng phần?
-File cần mở	Cách dùng
-Đề bài gốc	de_bai/DA - Test - HCVN.xlsx	Mở Excel để xem ba sheet SQL, PBI và Technical.
-
-Bài SQL	sql/HCVN.sqlite	Mở database bằng DBeaver với kết nối SQLite. Chạy lần lượt ba file SQL bắt đầu bằng 01_, 02_ và 03_. Kết quả mẫu nằm trong results/.
-
-
-Power BI – Giữ chân khách hàng	powerbi/HCVN.pbip	Mở bằng Power BI Desktop trên Windows rồi chọn Home → Refresh. Khi bỏ bộ lọc, kết quả là 2/10 cuộc gọi giữ chân thành công (20%).
-
-
-Technical – Xem nhanh	technical/live/Technical_dashboard_demo.gif	Mở ảnh động để xem dashboard mô phỏng thay đổi qua 10 sự kiện. Có thể xem trên Windows hoặc Mac mà không cần chạy Docker.
-
-
-Technical – Chạy dashboard trực tiếp	technical/live/Start_dashboard.cmd	Chạy trên Windows để khởi động Kafka, Oracle và mở báo cáo Entertainment.pbip. Các bước thiết lập nằm ngay bên dưới.
-
-
-Lưu ý về file Power BI: Khi sao chép hoặc giải nén dự án, giữ mỗi file .pbip cạnh hai thư mục .Report và .SemanticModel đi kèm. Power BI cần cả ba thành phần để mở báo cáo.
+After extracting the ZIP file, open the HCVN/ folder. It contains two PDFs:
+- HCVN_Bai_lam.pdf — Open this first to read the submission for all three sections: SQL, Power BI, and Technical.
+- 00_Huong_dan.pdf — Follow this guide to run each section. It includes dashboard screenshots and sample results for reference.
+All paths below are relative to the HCVN/ folder.
 
 
 
 
+1. Files to open for each section
+Section	File to open	Instructions
+Original test	de_bai/DA - Test - HCVN.xlsx	Open the workbook in Excel to review the three sheets: SQL, PBI, and Technical.
+SQL	sql/HCVN.sqlite	Open the database in DBeaver using a SQLite connection. Run the three SQL scripts in order, starting with 01_, 02_, and 03_. Sample results are in results/.
 
-2. Chạy dashboard Technical trên Windows
-Bước 1. Khởi động hệ thống
-Máy cần có Docker Desktop và Power BI Desktop. Mở Docker Desktop ở chế độ Linux containers và đợi Docker khởi động xong.
+Power BI — Customer Retention	powerbi/HCVN.pbip	Open the project in Power BI Desktop on Windows, then select Home → Refresh. With all filters cleared, 2 out of 10 calls resulted in successful retention (20%).
 
-Vào technical/live/, nhấp đúp Start_dashboard.cmd và giữ cửa sổ lệnh mở. Lần chạy đầu có thể mất vài phút để tải Kafka và Oracle. Khi dữ liệu sẵn sàng, chương trình sẽ mở Entertainment.pbip.
-Bước 2. Bật kết nối Oracle DirectQuery trong Power BI
-Nếu dùng bộ kết nối Oracle tích hợp sẵn trong Power BI Desktop, thiết lập một lần trên máy:
-1. Vào File → Options and settings → Options → Preview features.
-2. Tích Enable Oracle Bundled Provider for DirectQuery Mode.
-3. Bấm OK, đóng hẳn Power BI Desktop rồi mở lại technical/live/Entertainment.pbip. Giữ Docker và cửa sổ lệnh ở bước 1 đang chạy.
-Khi Power BI hỏi cách đăng nhập, chọn Database ở cột bên trái và dùng thông tin của môi trường demo:
-Trường	Giá trị
+Technical — Quick preview	technical/live/Technical_dashboard_demo.gif	Open the animated GIF to see how the dashboard changes across 10 simulated events. You can view it on Windows or Mac without running Docker.
+
+Technical — Run the live dashboard	technical/live/Start_dashboard.cmd	Run this script on Windows to start Kafka and Oracle and open Entertainment.pbip. Follow the setup steps below.
+
+
+Power BI project files. When copying or extracting a project, keep each .pbip file alongside its corresponding .Report and .SemanticModel folders. Power BI needs all three components to open the report.
+
+
+
+2. Run the Technical dashboard on Windows
+Step 1. Start the system
+You will need Docker Desktop and Power BI Desktop. Open Docker Desktop in Linux containers mode and wait for it to finish starting.
+
+In technical/live/, double-click Start_dashboard.cmd and leave the command window open. The first run may take a few minutes to download the Kafka and Oracle images. Once the data is ready, the script will open Entertainment.pbip. Or in another way , you can read the readme file in /technical/
+Step 2. Enable Oracle DirectQuery in Power BI
+If you are using Power BI Desktop’s built-in Oracle connector, complete this one-time setup:
+1. Go to File → Options and settings → Options → Preview features.
+2. Select Enable Oracle Bundled Provider for DirectQuery Mode.
+3. Click OK, close Power BI Desktop completely, and reopen technical/live/Entertainment.pbip. Keep Docker and the command window from Step 1 running.
+When Power BI asks how to sign in, select Database in the left pane and enter the demo credentials below.
+Field	Value
 Server	localhost:1521/FREEPDB1
 User name	HCVN
 Password	HcvnDemo2026
 
 
-Bấm Save hoặc Connect để mở báo cáo.
-Bước 3. Bật tự cập nhật và phát dữ liệu
-1. Trên trang Live entertainment operations, bấm vào vùng nền trống giữa hai bảng.
-2. Trong Visualizations, chọn Format page → Page refresh → On → Fixed interval và đặt 5 seconds.
-3. Lưu báo cáo và giữ trang mở. Quay lại cửa sổ Start_dashboard.cmd, nhấn một phím để bắt đầu phát 10 sự kiện mẫu, mỗi sự kiện cách nhau 8 giây.
-Bạn có thể theo dõi bảng Latest activity để thấy từng hành động. Khi khách hủy vé, Active bookings giảm. Khi hệ thống xác nhận hoàn tiền, Net receipts mới giảm.
-3. Kiểm tra dashboard tự cập nhật
-Sau 10 sự kiện, dashboard sẽ hiển thị 1 booking còn hiệu lực, 180.000 đồng thu ròng, 20 phút xem và 1 lượt check-in. Bộ phát dừng ở mốc 10 và giữ dữ liệu cho lần mở sau.
+Click Save or Connect to open the report.
+Step 3. Enable automatic page refresh and replay the sample events
+1. On the Live entertainment operations page, click the blank area between the two tables.
+2. In the Visualizations pane, select Format page → Page refresh → On → Fixed interval and set the interval to 5 seconds.
+3. Save the report and leave the page open. Return to the Start_dashboard.cmd window and press any key to replay the 10 sample events, one every 8 seconds.
+Watch the Latest activity table to follow each action. Active bookings decreases when a customer cancels a ticket. Net receipts decreases once the refund is confirmed.
+3. Verify that the dashboard refreshes automatically
+After 10 events, the dashboard should show 1 active booking, VND 180,000 in net receipts, 20 minutes watched, and 1 check-in. The event producer stops at 10 and keeps the data for the next session.
 
-Để thấy dashboard tự đổi số, giữ Power BI mở và mở PowerShell trong thư mục technical/live/. Khi ô Events received đang là 10, chạy:
+To verify that the dashboard updates automatically, leave Power BI open and open PowerShell in technical/live/. When Events received shows 10, run:
 docker compose --profile demo run --rm --no-deps producer publish --interval 1 --limit 11
 
-Lệnh này nâng tổng số sự kiện lên 11 bằng cách phát thêm một lượt xem City Lights dài 12 phút. Quan sát dashboard mà không bấm Refresh:
-Chỉ số	Trước khi phát	Sau sự kiện thứ 11
+This command brings the total to 11 events by publishing one additional 12-minute viewing event for City Lights. Watch the following values update without clicking Refresh.
+Metric	Before replay	After event 11
 Events received	10	11
 Minutes watched	20	32
-Net receipts	180.000 đồng	180.000 đồng
+Net receipts	VND 180,000	VND 180,000
 
 
-Khi xem xong, chạy lệnh sau trong cùng thư mục để dừng các dịch vụ và giữ lại dữ liệu:
+When you finish, run the following command from the same folder to stop the services and retain the data.
 docker compose --profile demo down
